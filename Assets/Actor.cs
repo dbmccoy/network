@@ -60,14 +60,17 @@ public class Actor : MonoBehaviour {
 	void TurnManager_instance_step ()
 	{
 
-		if(taskList.GetListLength()>0){
-			taskList.ExecuteTask();
+		if(taskList.GetListLength(taskList.moveQueue)==0){
+			MoveToLocation NextLocation = new MoveToLocation(_self,taskList.NextLocation());
+			NextLocation.Do();
 		}
-		if(taskList.GetListLength()==0 && location.actors.Count > 1){
+
+		// add intel test code
+		/*if(taskList.GetListLength()==0 && location.actors.Count > 1){
 			var t_actor = from a in location.actors where a != _self select a;
 			taskList.AddTask(new TransferIntelLocal(_self,t_actor.FirstOrDefault(),intelligence.inv[0],location));
 			taskList.ExecuteTask();
-		}
+		}*/
 	}
 
 	public void test(params object[] args){

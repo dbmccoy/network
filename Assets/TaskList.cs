@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class TaskList : MonoBehaviour {
 
-	private List<Ability> tasks;
+	public List<Ability> tasks;
+	public List<Ability> moveQueue;
 	private Actor actor;
-
-	public Ability[] CurrentTasks;
 
 	// Use this for initialization
 	void Awake () {
 		tasks = new List<Ability>();
+		moveQueue = new List<Ability>();
 	}
 
 	void Start(){
@@ -20,7 +20,23 @@ public class TaskList : MonoBehaviour {
 
 	public void AddTask(Ability _task){
 		tasks.Add(_task);
-		CurrentTasks = tasks.ToArray();
+	}
+
+	public void AddMove(Ability _move){
+		moveQueue.Add(_move);
+	}
+
+	public void ExecuteMove(int i = 0, bool recycle = false){
+		moveQueue[i].Do();
+		if(recycle){
+			RecycleMove(i);
+		}
+	}
+
+	public void RecycleMove(int i = 0){
+		Ability move1 = moveQueue[i];
+		moveQueue.RemoveAt(i);
+		moveQueue.Add(move1);
 	}
 
 	public void ExecuteTask(int i = 0){
@@ -28,8 +44,26 @@ public class TaskList : MonoBehaviour {
 		tasks.Remove(tasks[i]);
 	}
 
-	public int GetListLength(){
-		return tasks.Count;
+	public int GetListLength(List<Ability> list){
+		return list.Count;
+	}
+
+	// Routine
+
+	public Location NextLocation(){
+		int phase = TurnManager.instance.time;
+		if(phase == 1){
+			return actor.workplace;
+		}
+		if(phase == 2){
+			return actor.residence;
+		}
+		if(phase == 3){
+			return actor.residence;
+		}
+		else{
+			return actor.location;
+		}
 	}
 	
 	// Update is called once per frame
@@ -50,7 +84,7 @@ public class Ability{
 }
 	
 
-public class MoveToLocation: Ability{
+public class MoveToLocation : Ability{
 	public Location location;
 	public Actor actor;
 
@@ -70,7 +104,7 @@ public class MoveToLocation: Ability{
 	}
 }
 
-public class Wait: Ability{
+public class Wait : Ability{
 	public Location location;
 	public Actor actor;
 
@@ -99,3 +133,4 @@ public class TransferIntelLocal : Ability{
 		t_actor.intelligence.AddIntel(intel);
 	}
 }
+
