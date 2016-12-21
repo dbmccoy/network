@@ -54,3 +54,21 @@ public class I_Residence : Intel{
 		
 	}
 }
+
+public class I_Workplace : Intel{
+	public Actor actor, t_actor; public Location location; int shift;
+
+	public I_Workplace(Actor _actor, Location _location, Actor t_actor, int _shift){
+		actor = _actor; this.t_actor = t_actor; location = _location; shift = _shift;
+	}
+
+	public override string Read(){
+		string s = actor.name + ": " + t_actor.name + " works at " + location.name + ", shift " + shift;
+		return s;
+	}
+
+	public override void Query(){
+
+	}
+}
+

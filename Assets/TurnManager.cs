@@ -40,20 +40,19 @@ public class TurnManager : MonoBehaviour {
 	}
 
 	public void TimeStep(){
+		string phase = "empty";
+		time++;
 		if(time == 4){
 			day++;
 			time = 1;
 		}
-		else{
-			time++;
-		}
-		string phase = "null";
+
 		if(time == 1) phase = "day";
 		if(time == 2) phase = "evening";
 		if(time == 3) phase = "night";
 
-		dayText.text = "Time: " + phase;
-		timeText.text = "Day " + day;
+		dayText.text = "Day " + day;
+		timeText.text = "Time: " + phase;
 
 		step();
 	}

@@ -48,18 +48,35 @@ public class TaskList : MonoBehaviour {
 		return list.Count;
 	}
 
-	// Routine
+	// Routine  
 
 	public Location NextLocation(){
 		int phase = TurnManager.instance.time;
+
+		Location loc1,loc2,loc3;
+		loc1 = actor.free_locations[0];
+		if(actor.work_shift == 1)loc1 = actor.workplace;
+		if(actor.sleep_shift == 1)loc1 = actor.residence;
+		Debug.Log(actor.name + ": loc1 = " + loc1);
+
+		loc2 = actor.free_locations[0];
+		if(actor.work_shift == 2)loc2 = actor.workplace;
+		if(actor.sleep_shift == 2)loc2 = actor.residence;
+		Debug.Log(actor.name + ": loc2 = " + loc2);
+
+		loc3 = actor.free_locations[0];
+		if(actor.work_shift == 3)loc3 = actor.workplace;
+		if(actor.sleep_shift == 3)loc3 = actor.residence;
+		Debug.Log(actor.name + ": loc3 = " + loc3);
+
 		if(phase == 1){
-			return actor.workplace;
+			return loc1;
 		}
 		if(phase == 2){
-			return actor.residence;
+			return loc2;
 		}
 		if(phase == 3){
-			return actor.residence;
+			return loc3;
 		}
 		else{
 			return actor.location;
@@ -100,7 +117,7 @@ public class MoveToLocation : Ability{
 		actor.transform.position = location.transform.position + new Vector3(Random.Range(-1,1),
 																			 Random.Range(-1,1),
 																			 -.5f);
-		Debug.Log(actor.name +" is moving to "+ location.name);
+		Debug.Log(actor.name +" moved to "+ location.name);
 	}
 }
 
@@ -114,10 +131,10 @@ public class Wait : Ability{
 	}
 
 	public override void Do(){
-		Debug.Log(actor.name + " waiting");
+		//Debug.Log(actor.name + " waiting");
 		Actor[] local_actors = location.actors.ToArray();
 		foreach (var item in local_actors) {
-			Debug.Log(item.name + " is here");
+			//Debug.Log(item.name + " is here");
 		}
 	}
 }
@@ -131,6 +148,22 @@ public class TransferIntelLocal : Ability{
 
 	public override void Do(){
 		t_actor.intelligence.AddIntel(intel);
+	}
+}
+
+public class EvaluateActor : Ability{
+	public Actor actor; public Actor t_actor; public Location location;
+
+	public EvaluateActor(Actor _actor, Actor t_actor, Intel _intel){
+		actor = _actor; this.t_actor = t_actor; location = actor.location;
+	}
+
+	public override void Do(){
+		if(location == t_actor.location){
+			var inv = t_actor.intelligence.inv;
+			Intel intel = inv[Random.Range(0,inv.Count)];
+			actor.intelligence.AddIntel(intel);
+		}
 	}
 }
 

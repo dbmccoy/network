@@ -7,6 +7,7 @@ public class Actor : MonoBehaviour {
 
 	public string name;
 	public Sprite sprite;
+
 	//Affiliation
 	public bool can_request;
 	public string nationality;
@@ -14,6 +15,8 @@ public class Actor : MonoBehaviour {
 	public Dossier dossier;
 
 	public Location residence, workplace;
+	public List<Location> free_locations;
+	public int work_shift, sleep_shift;
 
 	private MainLog ml;
 	private Actor _self;
@@ -25,11 +28,16 @@ public class Actor : MonoBehaviour {
 		_self = GetComponent<Actor>();
 		taskList = GetComponent<TaskList>();
 		intelligence = GetComponent<Intelligence>();
+		free_locations = new List<Location>();
 		sprite = GetComponent<Sprite>();
 		ml = MainLog.mainLog;
 		dossier = Dossier.dossier;
 		transform.name = name;
 		TurnManager.instance.step += TurnManager_instance_step;
+
+		//remove this (placeholder)
+
+		free_locations.Add(GameObject.Find("Restaurant").GetComponent<Location>());
 
 	}
 
@@ -60,6 +68,8 @@ public class Actor : MonoBehaviour {
 	void TurnManager_instance_step ()
 	{
 
+		//routine placeholders
+
 		if(taskList.GetListLength(taskList.moveQueue)==0){
 			MoveToLocation NextLocation = new MoveToLocation(_self,taskList.NextLocation());
 			NextLocation.Do();
@@ -81,5 +91,6 @@ public class Actor : MonoBehaviour {
 
 	void Init_Intel(){
 		intelligence.AddIntel(new I_Residence(_self,location,_self));
+		intelligence.AddIntel(new I_Workplace(_self,workplace,_self,work_shift));
 	}
 }
