@@ -1,0 +1,21 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Mouse.cs">
+    <Files>
+      <File FileName="Assets/Actor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Mouse.cs" Line="39" Column="13" />
+      <File FileName="Assets/ContextMenu.cs" Line="74" Column="21" />
+      <File FileName="Assets/Clickable.cs" Line="34" Column="5" />
+      <File FileName="Assets/Obj.cs" Line="9" Column="21" />
+      <File FileName="Assets/Inventory.cs" Line="37" Column="8" />
+      <File FileName="Assets/Dossier.cs" Line="42" Column="24" />
+      <File FileName="Assets/MainLog.cs" Line="13" Column="9" />
+      <File FileName="Assets/Paper.cs" Line="1" Column="1" />
+      <File FileName="Assets/draggable_obj.cs" Line="21" Column="59" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

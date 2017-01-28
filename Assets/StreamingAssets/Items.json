@@ -1,0 +1,16 @@
+[
+	{
+		"id": 0,
+		"title": "Bench",
+		"size":10,
+		"stackable": false,
+		"slug": "outdoor_bench"
+	},
+	{
+		"id": 1,
+		"title": "Note",
+		"size":1,
+		"stackable": true,
+		"slug": "single_page_note"
+	}
+]
